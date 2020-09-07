@@ -16,13 +16,13 @@
 <section class="calculator" id="calculator">
     <div>
         <label for="city">Куда летим:</label>
-        <input id="city" type="text" v-model="city"></div>
+        <input autocomplete="off" id="city" type="text" v-model="city"></div>
     <div>
         <label for="weight">Вес:</label>
-        <input type="number" v-model="weight" id="weight"></div>
+        <input autocomplete="off" type="number" v-model="weight" id="weight"></div>
     <div>
         <label for="volume">Объём:</label>
-        <input type="number" step="0.1" v-model="volume" id="volume"></div>
+        <input autocomplete="off" type="number" step="0.1" v-model="volume" id="volume"></div>
     <button @click="calc()" id="go">Рассчитать</button>
 
 
@@ -128,48 +128,44 @@
 
 
                             if (this.showDispatcher === 'Аэрофлот') {
-                                // first.style.color = 'blue';
-                                seventh.textContent = ('Итого: ' + this.result.toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                                seventh.innerHTML = ('Итого: ' + this.result.toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' ' + '&#8381;';
                                 zeroth.setAttribute('src', 'img/aeroflot.png');
-                                zeroth.style.maxWidth = '110px';
+                                zeroth.setAttribute('alt', 'Аэрофлот');
                             }
                             else if (this.showDispatcher === 'S7') {
-                                // first.style.color = 'mediumseagreen';
-                                seventh.textContent = ('Итого: ' + (this.result - this.terminalPrice).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "));
+                                seventh.innerHTML = ('Итого: ' + (this.result - this.terminalPrice).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")) + ' ' + '&#8381;';
                                 this.terminalPrice = 0;
                                 wrapper.removeChild(fifth);
                                 zeroth.setAttribute('src', 'img/s7.png');
-                                zeroth.setAttribute('style', 'max-width: 90px');
+                                zeroth.setAttribute('alt', 'S7');
                             }
 
                             else if (this.showDispatcher === 'Уральские авиалинии') {
                                 zeroth.setAttribute('src', 'img/ural.png');
-                                zeroth.style.maxWidth = '110px';
-                                seventh.textContent = ('Итого: ' + this.result.toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-                                // first.style.color = 'red';
+                                zeroth.setAttribute('alt', 'Уральские Авиалинии');
+                                seventh.innerHTML = ('Итого: ' + this.result.toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' ' + '&#8381;';
                             }
 
                             else if (this.showDispatcher === 'NordStar') {
                                 zeroth.setAttribute('src', 'img/nordstar.png');
-                                zeroth.style.maxWidth = '110px';
-                                seventh.textContent = ('Итого: ' + this.result.toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                                zeroth.setAttribute('alt', 'NordStar');
+                                seventh.innerHTML = ('Итого: ' + this.result.toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' ' + '&#8381;';
                             }
 
                             else if (this.showDispatcher === 'Ямал') {
                                 zeroth.setAttribute('src', 'img/yamal.png');
-                                zeroth.style.maxWidth = '110px';
-                                seventh.textContent = ('Итого: ' + this.result.toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                                zeroth.setAttribute('alt', 'Ямал');
+                                seventh.innerHTML = ('Итого: ' + this.result.toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' ' + '&#8381;';
                             }
 
                             else if (this.showDispatcher === 'ИрАэро') {
                                 zeroth.setAttribute('src', 'img/iraero.png');
-                                zeroth.style.maxWidth = '80px';
-                                seventh.textContent = ('Итого: ' + this.result.toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                                zeroth.setAttribute('alt', 'ИрАэро');
+                                seventh.innerHTML = ('Итого: ' + this.result.toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' ' + '&#8381;';
                             }
 
                             else {
-                                // first.style.color = 'cornflowerblue';
-                                seventh.textContent = ('Итого: ' + this.result.toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                                seventh.innerHTML = ('Итого: ' + this.result.toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' ' + '&#8381;';
                             }
 
 
@@ -178,8 +174,8 @@
                             if (this.transferCity !== '') {
                                 second.textContent = 'Трансфер: ' + this.transferCity;
                             }
-                            fourth.textContent = ('Стоимость перелёта: ' + this.airPrice.toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-                            fifth.textContent = ('Терминальная обработка: ' + this.terminalPrice.toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                            fourth.textContent = ('Стоимость перелёта: ' + this.airPrice.toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                            fifth.textContent = ('Терминальная обработка: ' + this.terminalPrice.toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
                             sixth.textContent = ('Оформление ГАН: ' + this.waybillPrice).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
 
