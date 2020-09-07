@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Калькулятор</title>
     <link rel="stylesheet" href="main.css">
-    <link rel="shortcut icon" href="https://artis-logistics.ru/favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
 
@@ -15,13 +15,36 @@
 <section class="calculator" id="calculator">
     <div>
         <label for="city">Куда летим:</label>
-        <input autocomplete="off" id="city" type="text" v-model="city"></div>
+        <input autocomplete="off" id="city" type="text" v-model="city">
+    </div>
     <div>
         <label for="weight">Вес:</label>
-        <input autocomplete="off" type="number" v-model="weight" id="weight"></div>
+        <input autocomplete="off" type="number" v-model="weight" id="weight">
+    </div>
     <div>
         <label for="volume">Объём:</label>
-        <input autocomplete="off" type="number" step="0.1" v-model="volume" id="volume"></div>
+        <input autocomplete="off" type="number" step="0.1" v-model="volume" id="volume">
+    </div>
+    <div class="expedition__checkbox">
+
+<!--        <label class="c-custom-checkbox">-->
+
+<!--            <input type="checkbox" id="expeditionCheckbox">-->
+<!--            <svg width="34" height="34" viewBox="-4 -4 45 45" aria-hidden="true" focusable="false">-->
+<!--                &lt;!&ndash; The background &ndash;&gt;-->
+<!--                <rect class="cb-bg" width="40" height="40" x="-2" y="-2" stroke="currentColor" fill="none" stroke-width="3"-->
+<!--                      rx="6" ry="6"></rect>-->
+<!--                &lt;!&ndash; The checkmark&ndash;&gt;-->
+<!--                <polyline class="cb-cm" points="6,16 14,25 30,7" stroke="transparent" stroke-width="4" fill="none"></polyline>-->
+<!--            </svg>-->
+
+<!--            <span>Забор груза</span>-->
+
+
+<!--        </label>-->
+
+        <label><input id="expeditionCheckbox" type="checkbox"> Забор груза</label>
+    </div>
     <button @click="calc()" id="go">Рассчитать</button>
 
 
@@ -33,13 +56,13 @@
 
 <div class="results" id="results">
 
-    <!--    <div class="results__airlines" id="resultsAirlines">-->
-
-    <!--    </div>-->
-
 
 </div>
 
+<script>
+
+
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
@@ -55,6 +78,9 @@
                 let city = this.city;
                 const terminal = this.terminal;
                 let volume = this.volume;
+
+
+
 
 
                 let filteredArray = this.priceList.filter((el) => {
@@ -93,12 +119,15 @@
                             let resultsBlock = document.getElementsByClassName('results')[0];
                             let wrapper = document.createElement('article');
 
+                            // todo не забыть стоимость экспедирования добавить к общей стоимости
+
+
                             let zeroth = document.createElement('img');
-                            // let first = document.createElement('p');
                             let second = document.createElement('p');
                             let fourth = document.createElement('p');
                             let fifth = document.createElement('p');
                             let sixth = document.createElement('p');
+                            let sixthandahalf = document.createElement('p');
                             let seventh = document.createElement('b');
 
 
@@ -114,14 +143,47 @@
                             resultsAirlines.appendChild(second);
 
 
-                            // wrapper.appendChild(first);
                             wrapper.appendChild(fourth);
                             wrapper.appendChild(fifth);
                             wrapper.appendChild(sixth);
+
+                            let expeditionCheckbox = document.getElementById('expeditionCheckbox');
+
+                            if (expeditionCheckbox.checked) {
+                                wrapper.appendChild(sixthandahalf);
+                                if(weight <= 50 && volume <= 0.3) {
+                                    sixthandahalf.textContent = ('Забор по Новосибирску: ' + this.expedition[0].toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                                }
+                                else if(weight > 50 && weight <= 100 && volume > 0.3 && volume <= 0.6) {
+                                    sixthandahalf.textContent = ('Забор по Новосибирску: ' + this.expedition[1].toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                                }
+                                else if(weight > 101 && weight <= 500 && volume > 0.6 && volume <= 3) {
+                                    sixthandahalf.textContent = ('Забор по Новосибирску: ' + this.expedition[2].toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                                }
+                                else if(weight > 501 && weight <= 1000 && volume > 3 && volume <= 4.5) {
+                                    sixthandahalf.textContent = ('Забор по Новосибирску: ' + this.expedition[3].toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                                }
+                                else if(weight > 1001 && weight <= 1500 && volume > 4.5 && volume <= 7.5) {
+                                    sixthandahalf.textContent = ('Забор по Новосибирску: ' + this.expedition[4].toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+                                }
+                                else {
+                                    sixthandahalf.textContent = 'Стоимость экспедирования - по согласованию';
+                                }
+
+                            }
+
                             wrapper.appendChild(seventh);
 
-                            // zeroth.style.zIndex = '-1';
 
+
+                            // expeditionCheckbox.addEventListener('change', function() {
+                            //     if (expeditionCheckbox.checked) {
+                            //         console.log('нужен забор')
+                            //     }
+                            //     else {
+                            //         console.log('не нужен забор')
+                            //     }
+                            // });
 
                             if (this.showDispatcher === 'Аэрофлот') {
                                 seventh.innerHTML = ('Итого: ' + this.result.toFixed(0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + ' ' + '&#8381;';
@@ -174,8 +236,7 @@
 
                     let arrow = document.createElement('img');
                     arrow.setAttribute('src', 'img/arrow.svg');
-
-                    // desperationText.textContent = 'Новосибирск ' + desperation.appendChild(arrow) + city.charAt(0).toUpperCase() + city.substr(1).toLowerCase();
+                    arrow.setAttribute('alt', 'стрелка вправо');
                     desperationText.innerHTML = 'Новосибирск  ' + '<img src="img/arrow.svg" alt="">  ' + city.charAt(0).toUpperCase() + city.substr(1).toLowerCase();
 
 
@@ -203,6 +264,7 @@
             transferCity: '',
             filteredArray: [],
             resultsBlock: '',
+            expedition: [800, 900, 1700, 2700, 3500],
             priceList: [
                 {
                     "targetCity": "Абакан",

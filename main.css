@@ -31,7 +31,8 @@ body {
   margin-bottom: 10px;
   font-weight: bold;
 }
-.calculator input {
+.calculator input[type="number"],
+.calculator input[type="text"] {
   padding: 10px;
   border: 2px solid #20b2aa;
   border-radius: 4px;
@@ -95,7 +96,6 @@ article {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-
 }
 article:first-child {
   animation-delay: 0.05s;
@@ -115,40 +115,33 @@ article:nth-child(5) {
 article:nth-child(6) {
   animation-delay: 0.3s;
 }
-
 article:nth-child(7) {
   animation-delay: 0.35s;
 }
-
 article:nth-child(8) {
   animation-delay: 0.4s;
 }
-
 article:nth-child(9) {
   animation-delay: 0.45s;
 }
-
 article:nth-child(10) {
   animation-delay: 0.5s;
 }
-
 article p {
   margin-top: 0;
   margin-bottom: 10px;
 }
 article b {
-  /*margin-top: 10px;*/
-  /*align-self: flex-end;*/
-  /*position: absolute;*/
-  /*bottom: 20px;*/
+/*margin-top: 10px;*/
+/*align-self: flex-end;*/
+/*position: absolute;*/
+/*bottom: 20px;*/
   margin-top: auto;
 }
-
 .desperation {
   font-weight: 600;
   padding: 15px;
 }
-
 .results__airlines {
   display: flex;
   flex-direction: row;
@@ -157,22 +150,95 @@ article b {
   margin-bottom: 10px;
   width: 100%;
 }
-
 .results__airlines img {
-  /*position: absolute;*/
-  /*top: 10px;*/
-  /*left: 10px;*/
-  /*max-width: 110px;*/
-  /*height: auto;*/
+/*position: absolute;*/
+/*top: 10px;*/
+/*left: 10px;*/
+/*max-width: 110px;*/
+/*height: auto;*/
   z-index: -1;
 }
-
 .results__airlines p {
   margin: 0;
   padding-top: 32px;
-  /*color: #20b2aa;*/
+/*color: #20b2aa;*/
 }
-@media screen and (max-width: 1100px) {
+@-moz-keyframes showFlights {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@-webkit-keyframes showFlights {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@-o-keyframes showFlights {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.expedition__checkbox {
+  margin-right: 18px;
+  margin-bottom: 4px;
+}
+.expedition__checkbox .c-custom-checkbox {
+  cursor: pointer;
+  display: flex;
+  align-items: start;
+  --checked-state-bg-color: #20b2aa;
+  --checked-state-check-color: #fff;
+  --outline-color: var(--checked-state-bg-color);
+  --outline-offset: 2px;
+}
+.expedition__checkbox .c-custom-checkbox span {
+  margin-right: 5px;
+}
+.expedition__checkbox .c-custom-checkbox input[type="checkbox"] {
+/* remove the checkbox from the page flow, positioning it on top of the SVG */
+  position: absolute;
+/* set same dimensions as the SVG */
+  width: 1em;
+  height: 1em;
+/* hide it */
+  opacity: 0;
+}
+.expedition__checkbox .c-custom-checkbox svg {
+/* set SVG dimensions in ems; i.e. relative to the font size so that it scales with the size of the font. */
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 8px;
+/* apply a transition to the elements inside the svg */
+}
+.expedition__checkbox .c-custom-checkbox svg * {
+  transition: all 0.1s linear;
+}
+.expedition__checkbox .c-custom-checkbox input[type="checkbox"]:checked + svg .cb-bg {
+  fill: var(--checked-state-bg-color);
+  stroke: var(--checked-state-bg-color);
+}
+.expedition__checkbox .c-custom-checkbox input[type="checkbox"]:checked + svg .cb-cm {
+  stroke: var(--checked-state-check-color);
+}
+.expedition__checkbox .c-custom-checkbox input[type="checkbox"]:focus:not(:focus-visible) + svg {
+  outline: none;
+}
+@media screen and (max-width: 1243px) {
   .calculator {
     flex-direction: column;
     align-items: flex-start;
@@ -187,9 +253,14 @@ article b {
   .calculator button {
     width: 420px;
   }
+  .expedition__checkbox {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
 }
 @media screen and (max-width: 600px) {
-  .calculator div input,
+  .calculator div input[type="text"],
+  .calculator div input[type="number"],
   .calculator button {
     width: 100%;
   }
@@ -199,9 +270,9 @@ article b {
     min-width: 100%;
   }
 }
-
 @media screen and (max-width: 370px) {
-  html, body {
+  html,
+  body {
     font-size: 14px;
   }
   .results article {
@@ -215,8 +286,6 @@ article b {
     padding-top: 17px;
   }
 }
-
-
 @-moz-keyframes showFlights {
   0% {
     opacity: 0;
